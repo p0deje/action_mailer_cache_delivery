@@ -17,7 +17,7 @@ module ActionMailerCacheDelivery
     def install
       # initialize path to save deliveries
       root = Rails.root if defined?(Rails)
-      @deliveries_cache_path ||= "#{root}/tmp/cache/action_mailer_cache_deliveries"
+      @deliveries_cache_path ||= "#{root}/tmp/cache/action_mailer_cache_deliveries#{ENV['TEST_ENV_NUMBER']}"
 
       # add delivery method to ActionMailer
       ActionMailer::Base.add_delivery_method(:cache, Mail::CacheDelivery)
