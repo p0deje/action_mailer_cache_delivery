@@ -1,3 +1,3 @@
 module ActionMailerCacheDelivery
-  VERSION = '0.2.1'
-end
+  VERSION = '0.3.0'
+end # ActionMailerCacheDelivery

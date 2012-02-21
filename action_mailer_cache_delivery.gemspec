@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/p0deje/action_mailer_cache_delivery'
   s.version     = ActionMailerCacheDelivery::VERSION
 
-  s.authors     = ['Alex Rodionov']
-  s.email       = %w(p0deje@gmail.com)
+  s.authors     = 'Alex Rodionov'
+  s.email       = 'p0deje@gmail.com'
 
   s.summary     = 'Cache delivery method for ActionMailer'
   s.description = 'Cache delivery method for ActionMailer for testing emails with Selenium'
@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'actionmailer'
-  s.add_development_dependency 'rake'
+  s.add_dependency 'actionmailer', '~> 3.0.0'
+
+  s.add_development_dependency 'rspec' , '~> 2.8.0'
+  s.add_development_dependency 'rake'  , '~> 0.9.0'
 end
