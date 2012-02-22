@@ -19,10 +19,16 @@ describe Mail::CacheDelivery do
   end
 
   describe 'deliver' do
-    it 'should append mail to cache file' do
+    it 'should write mail to cache file' do
       mail.deliver
       file = ActionMailer::Base.cache_settings[:location]
       File.open(file, 'r') { |f| Marshal.load(f) }.should == [mail]
+    end
+
+    it 'should append mail to cache file' do
+      mail.deliver
+      file = ActionMailer::Base.cache_settings[:location]
+      File.open(file, 'r') { |f| Marshal.load(f) }.length.should == 2
     end
   end
 end # Mail::CachedDelivery
