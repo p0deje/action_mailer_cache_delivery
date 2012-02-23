@@ -1,4 +1,6 @@
-## Description
+## Action Mailer Cache Delivery
+
+[![Build Status](https://secure.travis-ci.org/p0deje/action_mailer_cache_delivery.png)](http://travis-ci.org/p0deje/action_mailer_cache_delivery)
 
 Enhances ActionMailer to support the `:cache` delivery method, which behaves like `:test`, except that the deliveries are marshalled to a temporary cache file, thus making them available to other processes.
 
