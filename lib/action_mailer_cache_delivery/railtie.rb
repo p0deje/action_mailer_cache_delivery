@@ -1,5 +1,6 @@
 module ActionMailerCacheDelivery
   class Railtie < Rails::Railtie
+
     #
     # Make settings available before configuration:
     #
@@ -10,5 +11,6 @@ module ActionMailerCacheDelivery
     config.before_configuration do
       ActionMailerCacheDelivery.install
     end
+
   end # Railtie
 end # ActionMailerCacheDelivery

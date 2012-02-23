@@ -12,11 +12,12 @@ module Mail
   # @example
   #   config.action_mailer.cache_settings = { location: "custom/path" }
   #
-  #
   class CacheDelivery
 
+    # @attr [Hash] settings Settings for CacheDelivery
     attr_accessor :settings
 
+    # @api private
     def initialize(settings)
       @settings = settings
 
@@ -25,6 +26,7 @@ module Mail
       FileUtils.mkdir_p(cache_dir) unless File.directory?(cache_dir)
     end
 
+    # @api private
     def deliver!(mail)
       # write empty array to cache file if doesn't exist
       unless File.exists?(@settings[:location])
