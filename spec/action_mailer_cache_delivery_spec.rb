@@ -16,8 +16,9 @@ describe ActionMailerCacheDelivery do
       it 'should clear cache file' do
         mail.deliver
         ActionMailer::Base.clear_cache
-        file = ActionMailer::Base.cache_settings[:location]
-        File.open(file, 'r') { |f| Marshal.load(f) }.should == []
+        File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
+          Marshal.load(file)
+        end.should == []
       end
 
       it 'should clear ActionMailer::Base.deliveries' do
@@ -28,6 +29,10 @@ describe ActionMailerCacheDelivery do
     end
 
     describe 'cached_deliveries' do
+      before(:each) do
+        ActionMailer::Base.clear_cache
+      end
+
       it 'should return array' do
         mail.deliver
         ActionMailer::Base.cached_deliveries.should be_an(Array)

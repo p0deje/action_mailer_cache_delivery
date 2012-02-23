@@ -8,6 +8,7 @@ describe Mail::CacheDelivery do
   before(:each) do
     ActionMailerCacheDelivery.install
     ActionMailer::Base.delivery_method = :cache
+    ActionMailer::Base.clear_cache
   end
 
   describe 'settings' do
@@ -21,14 +22,18 @@ describe Mail::CacheDelivery do
   describe 'deliver' do
     it 'should write mail to cache file' do
       mail.deliver
-      file = ActionMailer::Base.cache_settings[:location]
-      File.open(file, 'r') { |f| Marshal.load(f) }.should == [mail]
+      File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
+        Marshal.load(file)
+      end.should == [mail]
     end
 
     it 'should append mail to cache file' do
-      mail.deliver
-      file = ActionMailer::Base.cache_settings[:location]
-      File.open(file, 'r') { |f| Marshal.load(f) }.length.should == 2
+      5.times do
+        mail.deliver
+      end
+      File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
+        Marshal.load(file)
+      end.length.should == 5
     end
   end
 end # Mail::CachedDelivery
