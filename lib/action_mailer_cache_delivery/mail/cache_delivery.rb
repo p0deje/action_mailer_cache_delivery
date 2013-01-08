@@ -43,6 +43,8 @@ module Mail
       File.open(@settings[:location], 'w') do |file|
         Marshal.dump(mails, file)
       end
+
+      Mail::TestMailer.deliveries << mail
     end
 
   end # CacheDelivery
