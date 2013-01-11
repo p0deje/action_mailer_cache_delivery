@@ -69,7 +69,7 @@ describe ActionMailerCacheDelivery do
       it 'should set cache path to /tmp when Rails is not defined' do
         ActionMailerCacheDelivery.install
         ActionMailer::Base.delivery_method = :cache
-        ActionMailer::Base.cache_settings[:location].should == '/tmp/cache/action_mailer_cache_deliveries.cache'
+        ActionMailer::Base.cache_settings[:location].should == "#{Dir.tmpdir}/cache/action_mailer_cache_deliveries.cache"
       end
     end
   end
