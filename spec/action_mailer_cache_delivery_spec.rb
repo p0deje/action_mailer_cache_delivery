@@ -71,6 +71,15 @@ describe ActionMailerCacheDelivery do
         ActionMailer::Base.delivery_method = :cache
         ActionMailer::Base.cache_settings[:location].should == "#{Dir.tmpdir}/cache/action_mailer_cache_deliveries.cache"
       end
+
+      it 'should create full path to cache file' do
+        path = 'test1/test2/'
+        FileUtils.rm_rf(path) unless Dir.exists?(path) # remove directory if it exists
+        ActionMailer::Base.delivery_method = :cache
+        ActionMailer::Base.cache_settings = { :location => "#{path}/mail.cache" }
+        ActionMailerCacheDelivery.install
+        File.exists?("#{path}/mail.cache").should be_true
+      end
     end
   end
 end # ActionMailerCacheDelivery
