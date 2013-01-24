@@ -21,7 +21,8 @@ module Mail
     def initialize(settings)
       @settings = settings
 
-      ActionMailerCacheDelivery.create_cache_dir(@settings[:location])
+      cache_dir = File.dirname(@settings[:location])
+      FileUtils.mkdir_p(cache_dir) unless File.directory?(cache_dir)
     end
 
     # @api private

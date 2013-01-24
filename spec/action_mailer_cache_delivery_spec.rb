@@ -13,6 +13,11 @@ describe ActionMailerCacheDelivery do
     end
 
     describe 'clear_cache' do
+      it 'allows clearing cache before cache file is created' do
+        ActionMailer::Base.cache_settings[:location] = 'test_dir/test_dir/test.cache'
+        lambda { ActionMailer::Base.clear_cache }.should_not raise_error
+      end
+
       it 'should clear cache file' do
         mail.deliver
         ActionMailer::Base.clear_cache
@@ -31,6 +36,11 @@ describe ActionMailerCacheDelivery do
     describe 'cached_deliveries' do
       before(:each) do
         ActionMailer::Base.clear_cache
+      end
+
+      it 'returns empty array if cache has not been created yet' do
+        ActionMailer::Base.cache_settings[:location] = 'test_dir/test_dir/test.cache'
+        ActionMailer::Base.cached_deliveries.should == []
       end
 
       it 'should return array' do
@@ -70,15 +80,6 @@ describe ActionMailerCacheDelivery do
         ActionMailerCacheDelivery.install
         ActionMailer::Base.delivery_method = :cache
         ActionMailer::Base.cache_settings[:location].should == "#{Dir.tmpdir}/cache/action_mailer_cache_deliveries.cache"
-      end
-
-      it 'should create full path to cache file' do
-        path = 'test1/test2/'
-        FileUtils.rm_rf(path) unless Dir.exists?(path) # remove directory if it exists
-        ActionMailer::Base.delivery_method = :cache
-        ActionMailer::Base.cache_settings = { :location => "#{path}/mail.cache" }
-        ActionMailerCacheDelivery.install
-        File.exists?("#{path}/mail.cache").should be_true
       end
     end
   end
