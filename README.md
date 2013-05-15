@@ -48,13 +48,13 @@ config.action_mailer.cache_settings = { :location => "#{Rails.root}/tmp/cache/ac
 
 I tried to list there everyone who forked original version on GitHub. If you're not here, just send pull request.
 
-* ngty (Ng Tze Yang)
-* robinsp (Robin Spainhour)
-* thibaudgg (Thibaud Guillaume-Gentil)
-* liangzan (Wong Liang Zan)
-* railssignals (Kurt Kowar)
-* esdras (Esdras Mayrink)
-* nicolasochem (Nicolas Ochem)
-* reactualize
-* ragaskar (Rajan Agaskar)
-* marhan (Markus Hanses)
+* [ngty](https://github.com/ngty)
+* [robinsp](https://github.com/robinsp)
+* [thibaudgg](https://github.com/thibaudgg)
+* [liangzan](https://github.com/liangzan)
+* [railssignals](https://github.com/railssignals)
+* [esdras](https://github.com/esdras)
+* [nicolasochem](https://github.com/nicolasochem)
+* [reactualize](https://github.com/reactualize)
+* [ragaskar](https://github.com/ragaskar)
+* [marhan](https://github.com/marhan)
