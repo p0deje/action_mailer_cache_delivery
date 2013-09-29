@@ -1,7 +1,6 @@
 require 'action_mailer_cache_delivery/version'
 require 'action_mailer_cache_delivery/mail/cache_delivery'
 require 'action_mailer_cache_delivery/action_mailer/base'
-require 'action_mailer_cache_delivery/railtie' if defined?(Rails)
 
 module ActionMailerCacheDelivery
   class << self
@@ -14,3 +13,5 @@ module ActionMailerCacheDelivery
 
   end # << self
 end # ActionMailerCacheDelivery
+
+require 'action_mailer_cache_delivery/railtie' if defined?(Rails)
