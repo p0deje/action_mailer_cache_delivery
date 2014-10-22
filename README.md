@@ -2,7 +2,7 @@
 
 Enhances ActionMailer to support the `:cache` delivery method, which behaves like `:test`, except that the deliveries are marshalled to a temporary cache file, thus making them available to other processes.
 
-You'll want to use this gem if you're testing with Selenium (or any other tool which distinct processes).
+You'll want to use this gem if you're testing with Selenium (or any other tool which distinct processes). Another approach would be to [share deliveries between threads](https://gist.github.com/p0deje/ffc833630ee70f2af5ff) (in this case, this gem is not needed at all).
 
 ## Installation
 
