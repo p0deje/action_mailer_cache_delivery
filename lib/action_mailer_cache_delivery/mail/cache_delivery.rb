@@ -27,23 +27,27 @@ module Mail
 
     # @api private
     def deliver!(mail)
-      # write empty array to cache file if doesn't exist
-      unless File.exists?(@settings[:location])
-        File.open(@settings[:location], 'w') do |file|
-          Marshal.dump([], file)
+      ActionMailer::Base.with_cache_lock("#{@settings[:location]}.lock") do
+        # write empty array to cache file if doesn't exist
+        unless File.exist?(@settings[:location])
+          File.open(@settings[:location], 'w') do |file|
+            Marshal.dump([], file)
+          end
         end
-      end
 
-      # get delivered mails
-      mails = ActionMailer::Base.cached_deliveries
-      # append new one
-      mails << mail
-      # write all emails to cache file
-      File.open(@settings[:location], 'w') do |file|
-        Marshal.dump(mails, file)
-      end
+        # get delivered mails
+        mails = File.open(@settings[:location], 'r') do |file|
+          Marshal.load(file)
+        end
+        # append new one
+        mails << mail
+        # write all emails to cache file
+        File.open(@settings[:location], 'w') do |file|
+          Marshal.dump(mails, file)
+        end
 
-      Mail::TestMailer.deliveries << mail
+        Mail::TestMailer.deliveries << mail
+      end
     end
 
   end # CacheDelivery

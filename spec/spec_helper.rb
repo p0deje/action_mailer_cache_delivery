@@ -9,3 +9,10 @@ class Mailer < ActionMailer::Base
     mail(from: 'from@test.com', to: 'to@test.com', subject: 'Test email', body: 'Hello.')
   end
 end # Mailer
+
+RSpec.configure do |config|
+  config.before(:each) do
+    stub_const('Rails', Module.new)
+    allow(Rails).to receive(:root).and_return(Dir.pwd)
+  end
+end

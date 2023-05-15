@@ -15,30 +15,32 @@ describe Mail::CacheDelivery do
     it 'should allow setting custom location' do
       ActionMailer::Base.cache_settings = { location: '/tmp/mail.cache' }
       mail.deliver
-      File.exists?('/tmp/mail.cache').should be_true
+      expect(File.exist?('/tmp/mail.cache')).to eq(true)
     end
   end
 
   describe 'deliver!' do
     it 'should write mail to cache file' do
       mail.deliver
-      File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
+      mails = File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
         Marshal.load(file)
-      end.should == [mail]
+      end
+      expect(mails).to eq([mail])
     end
 
     it 'should append mail to cache file' do
       5.times do
         mail.deliver
       end
-      File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
+      mails = File.open(ActionMailer::Base.cache_settings[:location], 'r') do |file|
         Marshal.load(file)
-      end.length.should == 5
+      end
+      expect(mails.length).to eq(5)
     end
 
     it 'should append mail to TestMailer deliveries' do
       mail.deliver
-      Mail::TestMailer.deliveries.should == [mail]
+      expect(Mail::TestMailer.deliveries).to eq([mail])
     end
   end
 end # Mail::CachedDelivery
